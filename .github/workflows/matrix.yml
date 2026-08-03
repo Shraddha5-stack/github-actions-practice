@@ -7,7 +7,7 @@ jobs:
   matrix-job:
 
     strategy:
-      fail-fast: false
+      fail-fast:  true
 
       matrix:
         os:
