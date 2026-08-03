@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: "Choose environment"
+        description: Choose environment
         required: true
-        default: "staging"
+        default: staging
         type: choice
         options:
           - staging
@@ -17,10 +17,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Print Environment
-        run: echo "Environment: ${{ github.event.inputs.environment }}"
+        run: echo "Environment: ${{ inputs.environment }}"
 
       - name: Show Date
         run: date
