@@ -5,10 +5,23 @@ on:
 
 jobs:
   matrix-job:
+
     strategy:
+      fail-fast: false
+
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        python-version: ["3.10", "3.11", "3.12"]
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+        python-version:
+          - "3.10"
+          - "3.11"
+          - "3.12"
+
+        exclude:
+          - os: windows-latest
+            python-version: "3.10"
 
     runs-on: ${{ matrix.os }}
 
@@ -22,4 +35,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Display Python Version
-        run: python --version
+        run: |
+          python --version
+          exit 1
