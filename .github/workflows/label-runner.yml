@@ -1,0 +1,15 @@
+name: Label Runner Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  label-test:
+    runs-on: [self-hosted, my-linux-runner]
+
+    steps:
+      - name: Runner Label Test
+        run: |
+          echo "Running on my custom label runner"
+          hostname
+          whoami
