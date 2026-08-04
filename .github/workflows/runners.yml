@@ -6,42 +6,28 @@ on:
 jobs:
   ubuntu:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Print OS
-        run: echo "Operating System: $RUNNER_OS"
-
-      - name: Print Hostname
-        run: hostname
-
-      - name: Print Current User
-        run: whoami
+      - name: Print Runner Information
+        run: |
+          echo "Operating System: $RUNNER_OS"
+          hostname
+          whoami
 
   windows:
     runs-on: windows-latest
-
     steps:
-      - name: Print OS
+      - name: Print Runner Information
         shell: pwsh
-        run: Write-Host "Operating System: $env:RUNNER_OS"
-
-      - name: Print Hostname
-        shell: pwsh
-        run: hostname
-
-      - name: Print Current User
-        shell: pwsh
-        run: whoami
+        run: |
+          Write-Host "Operating System: $env:RUNNER_OS"
+          hostname
+          whoami
 
   macos:
     runs-on: macos-latest
-
     steps:
-      - name: Print OS
-        run: echo "Operating System: $RUNNER_OS"
-
-      - name: Print Hostname
-        run: hostname
-
-      - name: Print Current User
-        run: whoami
+      - name: Print Runner Information
+        run: |
+          echo "Operating System: $RUNNER_OS"
+          hostname
+          whoami
