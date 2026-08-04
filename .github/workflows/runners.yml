@@ -13,6 +13,19 @@ jobs:
           hostname
           whoami
 
+
+      - name: Show Docker Version
+        run: docker --version
+
+      - name: Show Python Version
+        run: python --version
+
+      - name: Show Node Version
+        run: node --version
+
+      - name: Show Git Version
+        run: git --version
+
   windows:
     runs-on: windows-latest
     steps:
