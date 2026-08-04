@@ -22,12 +22,15 @@ jobs:
 
     steps:
       - name: Print OS
-        run: echo "Operating System: $env:RUNNER_OS"
+        shell: pwsh
+        run: Write-Host "Operating System: $env:RUNNER_OS"
 
       - name: Print Hostname
+        shell: pwsh
         run: hostname
 
       - name: Print Current User
+        shell: pwsh
         run: whoami
 
   macos:
