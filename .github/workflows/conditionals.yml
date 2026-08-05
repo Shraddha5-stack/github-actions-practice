@@ -1,0 +1,26 @@
+name: Conditionals Demo
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  conditional-job:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run only on main branch
+        if: github.ref == 'refs/heads/main'
+        run: echo "This is the main branch."
+
+      - name: Intentional Failure
+        continue-on-error: true
+        run: exit 1
+
+      - name: Run if previous step failed
+        if: failure()
+        run: echo "The previous step failed."
+
+      - name: Workflow Completed
+        run: echo "Workflow completed successfully."
