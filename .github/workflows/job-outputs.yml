@@ -13,7 +13,8 @@ jobs:
     steps:
       - name: Get Today's Date
         id: date
-        run: echo "today=$(date)" >> $GITHUB_OUTPUT
+        run: |
+          echo "today=$(date)" >> "$GITHUB_OUTPUT"
 
   print-date:
     needs: generate-date
@@ -21,4 +22,5 @@ jobs:
 
     steps:
       - name: Print Date
-        run: echo "Today's date is: ${{ needs.generate-date.outputs.today }}"
+        run: |
+          echo "Today's date is: ${{ needs.generate-date.outputs.today }}"
