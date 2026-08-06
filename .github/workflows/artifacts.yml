@@ -1,0 +1,21 @@
+name: Upload Artifacts
+
+on:
+  push:
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Report File
+        run: |
+          echo "CI Test Report" > report.txt
+          echo "Build Successful" >> report.txt
+          cat report.txt
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: report.txt
