@@ -1,0 +1,32 @@
+name: Artifact Sharing
+
+on:
+  push:
+
+jobs:
+  create-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create File
+        run: |
+          echo "Hello from Job 1!" > message.txt
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shared-file
+          path: message.txt
+
+  use-artifact:
+    needs: create-artifact
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: shared-file
+
+      - name: Display File Contents
+        run: cat message.txt
