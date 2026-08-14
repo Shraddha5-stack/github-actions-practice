@@ -1,1 +1,2 @@
 Smart trigger test
+Testing workflow chain
