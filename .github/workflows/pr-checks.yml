@@ -1,0 +1,76 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  file-size-check:
+    name: Check File Size
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for files larger than 1 MB
+        run: |
+          echo "Checking files for size limit..."
+
+          large_files=$(find . -type f -not -path './.git/*' -size +1M)
+
+          if [ -n "$large_files" ]; then
+            echo "ERROR: The following files are larger than 1 MB:"
+            echo "$large_files"
+            exit 1
+          else
+            echo "All files are within the 1 MB limit."
+          fi
+
+
+  branch-name-check:
+    name: Check Branch Name
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check branch name
+        run: |
+          BRANCH="${{ github.head_ref }}"
+
+          echo "Branch name: $BRANCH"
+
+          if [[ "$BRANCH" =~ ^feature/.+ ]] || \
+             [[ "$BRANCH" =~ ^fix/.+ ]] || \
+             [[ "$BRANCH" =~ ^docs/.+ ]]; then
+
+            echo "Branch name is valid."
+
+          else
+
+            echo "ERROR: Invalid branch name."
+            echo "Use one of these formats:"
+            echo "feature/*"
+            echo "fix/*"
+            echo "docs/*"
+            exit 1
+
+          fi
+
+
+  pr-body-check:
+    name: Check PR Description
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR body
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if [ -z "$PR_BODY" ]; then
+            echo "WARNING: Pull Request description is empty."
+            echo "Please add a description to explain your changes."
+          else
+            echo "Pull Request description is present."
+          fi
